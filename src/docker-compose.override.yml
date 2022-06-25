@@ -1,0 +1,12 @@
+﻿version: "3.4"
+
+services:
+  catalog-api:
+    container_name: catalog-api
+    env_file:
+      - .env.development
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+#      - "DatabaseSettings:ConnectionString=mongodb://catalog-db:27017"
+    ports:
+      - "5000:80"
