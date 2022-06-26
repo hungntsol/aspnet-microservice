@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Catalog.API", "src\Services
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "services", "services", "{220B89F2-61B5-4BC5-9651-6ADA9C6B4370}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Basket.API", "src\Services\Basket\Basket.API\Basket.API.csproj", "{B552D825-74BD-4BF5-9F46-4AB55AB5984F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -14,8 +16,13 @@ Global
 		{90503242-43CF-4813-8A4C-CA58ED9B4CF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{90503242-43CF-4813-8A4C-CA58ED9B4CF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{90503242-43CF-4813-8A4C-CA58ED9B4CF8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B552D825-74BD-4BF5-9F46-4AB55AB5984F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B552D825-74BD-4BF5-9F46-4AB55AB5984F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B552D825-74BD-4BF5-9F46-4AB55AB5984F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B552D825-74BD-4BF5-9F46-4AB55AB5984F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{90503242-43CF-4813-8A4C-CA58ED9B4CF8} = {220B89F2-61B5-4BC5-9651-6ADA9C6B4370}
+		{B552D825-74BD-4BF5-9F46-4AB55AB5984F} = {220B89F2-61B5-4BC5-9651-6ADA9C6B4370}
 	EndGlobalSection
 EndGlobal
