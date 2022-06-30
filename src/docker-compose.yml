@@ -10,7 +10,7 @@ services:
     restart: always
     volumes:
       - catalog_data:/data/db
-  
+
   catalog-api:
     image: ${DOCKER_REGISTRY-}catalog-api
     build:
@@ -20,14 +20,13 @@ services:
       - catalog_db
 
   # Basket
-  
   basket-db:
     image: redis:alpine
     container_name: basket-db
     restart: always
     ports:
       - "6379:6379"
-    
+
   basket-api:
     image: ${DOCKER_REGISTRY-}basket-api
     build:
@@ -38,5 +37,32 @@ services:
     ports:
       - "5010:80"
 
+  # Discount
+  discount-db:
+    container_name: discount-db
+    image: postgres:alpine
+    restart: always
+    env_file:
+      - .env.development
+    ports:
+      - "5432:5432"
+    volumes:
+      - discount_data:/var/lib/postgresql/data
+        
+  pgadmin4:
+    container_name: pgadmin4
+    image: dpage/pgadmin4
+    restart: always
+    depends_on:
+      - discount_db
+    ports:
+      - "8080:80"
+    env_file:
+      - .env.development
+    volumes:
+      - pgadmin_data:/root/.pgadmin
+
 volumes:
   catalog_data:
+  discount_data:
+  pgadmin_data:
