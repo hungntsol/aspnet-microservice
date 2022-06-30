@@ -3,17 +3,37 @@
 services:
   catalog-api:
     container_name: catalog-api
-    env_file:
-      - .env.development
     environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-#      - "DatabaseSettings:ConnectionString=mongodb://catalog-db:27017"
+      - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
+      - MongoSettings:ConnectionString=${CatalogDb_ConnectionString}
     ports:
       - "5000:80"
         
   basket-api:
     container_name: basket-api
-    env_file:
-      - .env.development
+    environment:
+      - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
+      - RedisSettings:ConnectionString=${BasketDb_ConnectionString}
     ports:
       - "5010:80"
+
+  discount-db:
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_PORT=${POSTGRES_PORT}
+  
+  pgadmin4:
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=${PGADMIN_DEFAULT_EMAIL}
+      - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_DEFAULT_PASSWORD}
+  
+
+  discount-api:
+    container_name: discount-api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
+      - PostgresSettings:ConnectionString=${DiscountDb_ConnectionString}
+    ports:
+      - "5020:80"

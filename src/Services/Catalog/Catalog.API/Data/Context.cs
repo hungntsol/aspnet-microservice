@@ -5,7 +5,7 @@ namespace Catalog.API.Data;
 
 public class Context : IContext
 {
-    private const string DATABASE_SETTINGS_PREFIX = "DatabaseSettings";
+    private const string DATABASE_SETTINGS_PREFIX = "MongoSettings";
     
     public Context(IConfiguration configuration)
     {

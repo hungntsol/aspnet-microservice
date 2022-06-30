@@ -17,7 +17,7 @@ services:
       context: .
       dockerfile: Services/Catalog/Catalog.API/Dockerfile
     depends_on:
-      - catalog_db
+      - catalog-db
 
   # Basket
   basket-db:
@@ -33,22 +33,18 @@ services:
       context: .
       dockerfile: Services/Basket/Basket.API/Dockerfile
     depends_on:
-      - basket_db
-    ports:
-      - "5010:80"
+      - basket-db
 
   # Discount
   discount-db:
     container_name: discount-db
     image: postgres:alpine
     restart: always
-    env_file:
-      - .env.development
     ports:
       - "5432:5432"
     volumes:
       - discount_data:/var/lib/postgresql/data
-        
+
   pgadmin4:
     container_name: pgadmin4
     image: dpage/pgadmin4
@@ -57,10 +53,16 @@ services:
       - discount_db
     ports:
       - "8080:80"
-    env_file:
-      - .env.development
     volumes:
       - pgadmin_data:/root/.pgadmin
+
+  discount-api:
+    image: ${DOCKER_REGISTRY-}discount-api
+    build:
+      context: .
+      dockerfile: Services/Discount/Discount.API/Dockerfile
+    depends_on:
+      - discount-db
 
 volumes:
   catalog_data:
