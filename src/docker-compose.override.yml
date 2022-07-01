@@ -6,6 +6,8 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
       - MongoSettings:ConnectionString=${CatalogDb_ConnectionString}
+      - MongoSettings:DatabaseName=${CatalogDb_Database}
+      - MongoSettings:CollectionName=${CatalogDb_Collection}
     ports:
       - "5000:80"
         
