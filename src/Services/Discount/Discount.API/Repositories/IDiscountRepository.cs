@@ -1,13 +1,11 @@
-﻿using System.Threading.Tasks;
-using Discount.API.Entities;
+﻿using Discount.API.Entities;
 
-namespace Discount.API.Repositories
+namespace Discount.API.Repositories;
+
+public interface IDiscountRepository
 {
-    public interface IDiscountRepository
-    {
-        Task<Coupon> GetDiscountAsync(string productName);
-        Task<bool> SaveDiscountAsync(Coupon coupon);
-        Task<bool> UpdateDiscountAsync(Coupon coupon);
-        Task<bool> DeleteDiscountAsync(string productName);
-    }
+    Task<Coupon> GetDiscountAsync(string productName);
+    Task<bool> SaveDiscountAsync(Coupon coupon);
+    Task<bool> UpdateDiscountAsync(Coupon coupon);
+    Task<bool> DeleteDiscountAsync(string productName);
 }
