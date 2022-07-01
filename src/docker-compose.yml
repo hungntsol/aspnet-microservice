@@ -16,6 +16,7 @@ services:
     build:
       context: .
       dockerfile: Services/Catalog/Catalog.API/Dockerfile
+    restart: always
     depends_on:
       - catalog-db
 
@@ -32,6 +33,7 @@ services:
     build:
       context: .
       dockerfile: Services/Basket/Basket.API/Dockerfile
+    restart: always
     depends_on:
       - basket-db
 
