@@ -1,7 +1,4 @@
-using Discount.Grpc.Entities;
-using Discount.Grpc.Protos;
 using Discount.Grpc.Repositories;
-using Mapster;
 using DiscountService = Discount.Grpc.Services.DiscountService;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,9 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddGrpc();
 builder.Services.AddTransient<IDiscountRepository, DiscountRepository>();
 
-var adapterConfig = new TypeAdapterConfig();
-adapterConfig.NewConfig<Coupon, CouponModel>();
-builder.Services.AddSingleton(adapterConfig);
+builder.Services.AddAutoMapper(typeof(Program).Assembly);
 
 var app = builder.Build();
 

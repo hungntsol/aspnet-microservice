@@ -19,9 +19,9 @@ public static class HostExtensions
                 new NpgsqlConnection(configurationService.GetValue<string>("PostgresSettings:ConnectionString"));
             connection.Open();
 
-            const string query = @"SELECT 1 FROM pg_database WHERE datname = 'coupon'";
+            const string query = @"SELECT 1 FROM pg_catalog.pg_database WHERE lower(datname) = lower('DiscountDb')";
             var result = connection.QueryFirstOrDefault<int>(query);
-            logger.LogInformation("PostgresSQL database coupon exists: {0}", result);
+            logger.LogInformation("PostgresSQL database discountDb exists: {0}", result);
             if (result == 1)
             {
                 logger.LogInformation("Coupon db PostgresSQL already exists");
