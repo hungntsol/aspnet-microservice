@@ -66,6 +66,15 @@ services:
     depends_on:
       - discount-db
 
+  discount-grpc:
+    image: ${DOCKER_REGISTRY-}discount-grpc
+    build:
+      context: .
+      dockerfile: Services/Discount/Discount.Grpc/Dockerfile
+    depends_on:
+      - discount-db
+      - discount-api
+
 volumes:
   catalog_data:
   discount_data:

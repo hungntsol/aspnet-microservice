@@ -16,6 +16,7 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
       - RedisSettings:ConnectionString=${BasketDb_ConnectionString}
+      - GrpcSettings:DiscountServiceUrl=${DiscountService_GrpcUrl}
     ports:
       - "5010:80"
 
@@ -39,3 +40,11 @@ services:
       - PostgresSettings:ConnectionString=${DiscountDb_ConnectionString}
     ports:
       - "5020:80"
+
+  discount-grpc:
+    container_name: discount-grpc
+    environment:
+      - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
+      - PostgresSettings:ConnectionString=${DiscountDb_ConnectionString}
+    ports:
+      - "5120:80"
