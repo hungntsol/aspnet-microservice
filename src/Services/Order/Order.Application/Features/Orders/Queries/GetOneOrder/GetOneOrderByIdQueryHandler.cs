@@ -1,6 +1,7 @@
 ﻿using MapsterMapper;
 using MediatR;
 using Order.Application.Contracts.Persistence;
+using Order.Application.Features.Orders.Queries.Vms;
 
 namespace Order.Application.Features.Orders.Queries.GetOneOrder;
 

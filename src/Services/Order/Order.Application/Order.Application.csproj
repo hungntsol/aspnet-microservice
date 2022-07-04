@@ -12,18 +12,16 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Behaviours" />
-      <Folder Include="Features\Orders\Commands" />
-    </ItemGroup>
-
-    <ItemGroup>
         <Generated Include="**\*.g.cs" />
     </ItemGroup>
 
     <ItemGroup>
+      <PackageReference Include="FluentValidation" Version="11.1.0" />
+      <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.1.0" />
       <PackageReference Include="Mapster" Version="7.3.0" />
       <PackageReference Include="Mapster.Core" Version="1.2.0" />
       <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="10.0.1" />
+      <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="6.0.0" />
     </ItemGroup>
 
 </Project>

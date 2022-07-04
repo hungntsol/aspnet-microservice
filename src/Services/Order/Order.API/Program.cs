@@ -1,3 +1,5 @@
+using System.Reflection;
+using MediatR;
 using Order.API.ExtensionMethods;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,6 +12,9 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddMapster();
+builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
+
+builder.Services.AddPipeline();
 
 var app = builder.Build();
 

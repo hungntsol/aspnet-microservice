@@ -1,8 +1,8 @@
 ﻿using Order.Application.Mapping;
 
-namespace Order.Application.Features.Orders.Queries.GetOneOrder;
+namespace Order.Application.Features.Orders.Queries.Vms;
 
-public class OrderViewModel : MappingBase<OrderViewModel, Domain.Entities.Order>
+public class OrderViewModel
 {
     public int Id { get; set; }
     public string? Username { get; set; }
