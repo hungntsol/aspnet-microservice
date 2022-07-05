@@ -1,10 +1,12 @@
-﻿using Order.Domain.Entities.Common;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using Order.Domain.Entities.Common;
 
 namespace Order.Domain.Entities;
 
 public class Order : EntityBase
 {
     public string? Username { get; set; }
+    [Column(TypeName = "decimal(18,2)")]
     public decimal TotalPrice { get; set; }
     // Bill info
     public string? FirstName { get; set; }

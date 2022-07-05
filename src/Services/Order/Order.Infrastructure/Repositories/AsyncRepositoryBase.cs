@@ -8,32 +8,32 @@ namespace Order.Infrastructure.Repositories;
 
 public class AsyncRepositoryBase<T> : IAsyncRepository<T> where T : EntityBase
 {
-    private readonly OrderDataContext _context;
+    protected readonly OrderDataContext Context;
 
     public AsyncRepositoryBase(OrderDataContext context)
     {
-        _context = context;
+        Context = context;
     }
 
     public async Task<IReadOnlyList<T>> GetAllAsync()
     {
-        return await _context.Set<T>().ToListAsync();
+        return await Context.Set<T>().ToListAsync();
     }
 
     public async Task<T?> GetByIdAsync(int id)
     {
-        return await _context.Set<T>().Where(x => x.Id == id).FirstOrDefaultAsync();
+        return await Context.Set<T>().Where(x => x.Id == id).FirstOrDefaultAsync();
     }
     
 
     public async Task<IReadOnlyList<T>> FindAsync(Expression<Func<T, bool>> predicate)
     {
-        return await _context.Set<T>().Where(predicate).ToListAsync();
+        return await Context.Set<T>().Where(predicate).ToListAsync();
     }
 
     public async Task<IReadOnlyList<T>> FindAsync(Expression<Func<T, bool>>? predicate, Func<IQueryable<T>, IOrderedQueryable<T>>? orderBy, string? includeString, bool tracking = true)
     {
-        IQueryable<T> dbSet = _context.Set<T>();
+        IQueryable<T> dbSet = Context.Set<T>();
         
         if (tracking)
             dbSet.AsTracking();
@@ -58,7 +58,7 @@ public class AsyncRepositoryBase<T> : IAsyncRepository<T> where T : EntityBase
 
     public async Task<IReadOnlyList<T>> FindAsync(Expression<Func<T, bool>>? predicate, Func<IQueryable<T>, IOrderedQueryable<T>>? orderBy, IEnumerable<Expression<Func<T, object>>>? includes, bool tracking = true)
     {
-        IQueryable<T> dbSet = _context.Set<T>();
+        IQueryable<T> dbSet = Context.Set<T>();
         
         if (tracking)
             dbSet.AsTracking();
@@ -85,20 +85,20 @@ public class AsyncRepositoryBase<T> : IAsyncRepository<T> where T : EntityBase
 
     public async Task<T> AddAsync(T entity)
     {
-        await _context.Set<T>().AddAsync(entity);
-        await _context.SaveChangesAsync();
+        await Context.Set<T>().AddAsync(entity);
+        await Context.SaveChangesAsync();
         return entity;
     }
 
     public async Task<bool> UpdateAsync(T entity)
     {
-        _context.Entry(entity).State = EntityState.Modified;
-        return await _context.SaveChangesAsync() > 0;
+        Context.Entry(entity).State = EntityState.Modified;
+        return await Context.SaveChangesAsync() > 0;
     }
 
     public async Task<bool> RemoveAsync(T entity)
     {
-        _context.Remove(entity);
-        return await _context.SaveChangesAsync() > 0;
+        Context.Remove(entity);
+        return await Context.SaveChangesAsync() > 0;
     }
 }

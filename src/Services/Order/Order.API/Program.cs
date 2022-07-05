@@ -1,6 +1,5 @@
-using System.Reflection;
-using MediatR;
 using Order.API.ExtensionMethods;
+using Order.Infrastructure.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,18 +10,19 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddMapster();
-builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
+builder.Services.AddDataContext<OrderDataContext>(builder.Configuration);
 
-builder.Services.AddPipeline();
+builder.Services.AddInfrastructureServices();
+builder.Services.AddApplicationServices();
 
 var app = builder.Build();
+app.MigrateDatabase<OrderDataContext>((context, action) => { });
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+	app.UseSwagger();
+	app.UseSwaggerUI();
 }
 
 app.UseHttpsRedirection();

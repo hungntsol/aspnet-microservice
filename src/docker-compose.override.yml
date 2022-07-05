@@ -48,3 +48,8 @@ services:
       - PostgresSettings:ConnectionString=${DiscountDb_ConnectionString}
     ports:
       - "5120:80"
+
+  order-db:
+    environment:
+      - SA_PASSWORD=${OrderDb_SA_PASSWORD}
+      - ACCEPT_EULA=${OrderDb_ACCEPT_EULA}

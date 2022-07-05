@@ -75,7 +75,18 @@ services:
       - discount-db
       - discount-api
 
+  # Order
+  order-db:
+    container_name: order-db
+    image: mcr.microsoft.com/mssql/server
+    restart: always
+    ports:
+      - "1433:1433"
+    volumes:
+      - order_data:/var/lib/mssql/data
+
 volumes:
   catalog_data:
   discount_data:
   pgadmin_data:
+  order_data:
