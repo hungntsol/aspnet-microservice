@@ -17,6 +17,7 @@ services:
       - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
       - RedisSettings:ConnectionString=${BasketDb_ConnectionString}
       - GrpcSettings:DiscountServiceUrl=${DiscountService_GrpcUrl}
+      - EventBusSettings:HostAddress=${RabbitMQ_HostAddress}
     ports:
       - "5010:80"
 

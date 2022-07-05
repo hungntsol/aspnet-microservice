@@ -10,11 +10,19 @@
     <PackageReference Include="Grpc.AspNetCore" Version="2.40.0" />
     <PackageReference Include="Grpc.AspNetCore.Server.ClientFactory" Version="2.46.0" />
     <PackageReference Include="Grpc.Tools" Version="2.40.0" PrivateAssets="All" />
+    <PackageReference Include="Mapster" Version="6.5.1" />
+    <PackageReference Include="Mapster.DependencyInjection" Version="1.0.0" />
+    <PackageReference Include="MassTransit" Version="8.0.3" />
+    <PackageReference Include="MassTransit.AspNetCore" Version="7.3.1" />
+    <PackageReference Include="MassTransit.RabbitMQ" Version="8.0.3" />
     <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="6.0.6" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
   </ItemGroup>
   <ItemGroup>
     <Protobuf Include="..\..\Discount\Discount.Grpc\Protos\discount.proto" GrpcServices="Client" Link="Protos\discount.proto" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\BuildingBlocks\EventBus.Message\EventBus.Message.csproj" />
   </ItemGroup>
 </Project>

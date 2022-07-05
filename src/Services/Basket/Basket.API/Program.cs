@@ -1,3 +1,4 @@
+using Basket.API.ExtensionMethods;
 using Basket.API.GrpcServices;
 using Basket.API.Repositories;
 using Discount.Grpc.Protos;
@@ -22,6 +23,9 @@ builder.Services.AddTransient<IBasketRepository, BasketRepository>();
 builder.Services.AddGrpcClient<DiscountService.DiscountServiceClient>(
     o => o.Address = new Uri(configuration.GetValue<string>("GrpcSettings:DiscountServiceUrl")));
 builder.Services.AddTransient<DiscountGrpcService>();
+
+builder.Services.AddMapster();
+builder.Services.AddEventBus(configuration);
 
 var app = builder.Build();
 

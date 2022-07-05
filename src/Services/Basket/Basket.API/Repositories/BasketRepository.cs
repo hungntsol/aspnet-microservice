@@ -13,8 +13,10 @@ public class BasketRepository : IBasketRepository
         _distributedCache = distributedCache;
     }
 
-    public async Task<ShoppingCart> GetBasketAsync(string userName)
+    public async Task<ShoppingCart?> GetBasketAsync(string userName)
     {
+        ArgumentNullException.ThrowIfNull(userName);
+        
         var basket = await _distributedCache.GetStringAsync(userName);
         if (string.IsNullOrEmpty(basket))
             return null;
@@ -22,11 +24,13 @@ public class BasketRepository : IBasketRepository
         return JsonConvert.DeserializeObject<ShoppingCart>(basket) ?? null;
     }
 
-    public async Task<ShoppingCart> UpdateBasketAsync(ShoppingCart basket)
+    public async Task<ShoppingCart?> UpdateBasketAsync(ShoppingCart basket)
     {
+        ArgumentNullException.ThrowIfNull(basket.Username);
+
         await _distributedCache.SetStringAsync(basket.Username, JsonConvert.SerializeObject(basket));
 
-        return await GetBasketAsync(basket.Username);
+        return await GetBasketAsync(basket.Username) ?? null;
     }
 
     public async Task<bool> DeleteBasketAsync(string userName)
