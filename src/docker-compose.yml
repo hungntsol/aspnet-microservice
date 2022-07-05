@@ -1,4 +1,4 @@
-﻿version: '3.4'
+﻿version: '3.8'
 
 services:
   # Catalog
@@ -90,8 +90,16 @@ services:
     build:
       context: .
       dockerfile: Services/Order/Order.API/Dockerfile
-    depends_on: 
+    depends_on:
       - order-db
+  
+  rabbitmq:
+    container_name: rabbitmq
+    image: rabbitmq:management-alpine
+    restart: always
+    ports:
+      - "15672:15672"
+      - "5672:5672"
 
 volumes:
   catalog_data:
