@@ -85,6 +85,14 @@ services:
     volumes:
       - order_data:/var/lib/mssql/data
 
+  order-api:
+    image: ${DOCKER_REGISTRY-}order-api
+    build:
+      context: .
+      dockerfile: Services/Order/Order.API/Dockerfile
+    depends_on: 
+      - order-db
+
 volumes:
   catalog_data:
   discount_data:

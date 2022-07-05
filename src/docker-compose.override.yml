@@ -53,3 +53,11 @@ services:
     environment:
       - SA_PASSWORD=${OrderDb_SA_PASSWORD}
       - ACCEPT_EULA=${OrderDb_ACCEPT_EULA}
+
+  order-api:
+    container_name: order-api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
+      - MSSQLSettings:ConnectionString=${OrderDb_ConnectionString}
+    ports:
+      - "5030:80"
