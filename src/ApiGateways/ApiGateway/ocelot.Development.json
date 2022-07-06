@@ -15,7 +15,14 @@
         "GET",
         "POST",
         "PUT"
-      ]
+      ],
+      "RateLimitOptions": {
+        "ClientWhitelist": [],
+        "EnableRateLimiting": true,
+        "Period": "5s",
+        "PeriodTimespan": 1,
+        "Limit": 1
+      }
     },
     {
       "DownstreamPathTemplate": "/api/Catalogs/{id}",
@@ -134,8 +141,5 @@
         "POST"
       ]
     }
-  ],
-  "GlobalConfiguration": {
-    "BaseUrl": "http://localhost:5000"
-  }
+  ]
 }
