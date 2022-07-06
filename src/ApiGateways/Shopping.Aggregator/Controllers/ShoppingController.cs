@@ -25,11 +25,28 @@ public class ShoppingController : ControllerBase
 	public async Task<IActionResult> GetShopping(string username)
 	{
 		var shoppingBasket = await _basketService.GetBasketAsync(username);
+		var ordersTask = _orderService.GetEnumerableOrdersAsync(username);
 
-		if (shoppingBasket is null)
-			return Ok();
+		if (shoppingBasket is not null || shoppingBasket?.Items.Count > 0)
+		{
+			await AggregateBasketWithCatalog(shoppingBasket);
+		}
+
+		ordersTask.Wait();
 		
-		foreach (var item in shoppingBasket.Items)
+		var shoppingModel = new ShoppingModel
+		{
+			Basket = shoppingBasket,
+			Orders = ordersTask.Result,
+			Username = username
+		};
+
+		return Ok(shoppingModel);
+	}
+
+	private async Task AggregateBasketWithCatalog(BasketModel? shoppingBasket)
+	{
+		foreach (var item in shoppingBasket?.Items!)
 		{
 			var product = await _catalogService.GetCatalogAsync(item.ProductId);
 			if (product is null) continue;
@@ -37,15 +54,5 @@ public class ShoppingController : ControllerBase
 			item.Price = product.Price;
 			item.ProductName = product.Name;
 		}
-
-		var orders = await _orderService.GetEnumerableOrdersAsync(username);
-		var shoppingModel = new ShoppingModel
-		{
-			Basket = shoppingBasket,
-			Orders = orders,
-			Username = username
-		};
-
-		return Ok(shoppingModel);
 	}
 }

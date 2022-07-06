@@ -12,7 +12,7 @@ services:
       - catalog_data:/data/db
 
   catalog-api:
-    image: catalog-api
+    image: ${DOCKER_REGISTRY-}catalog-api
     build:
       context: .
       dockerfile: Services/Catalog/Catalog.API/Dockerfile
@@ -29,13 +29,14 @@ services:
       - "6379:6379"
 
   basket-api:
-    image: basket-api
+    image: ${DOCKER_REGISTRY-}basket-api
     build:
       context: .
       dockerfile: Services/Basket/Basket.API/Dockerfile
     restart: always
     depends_on:
       - basket-db
+      - rabbitmq
 
   # Discount
   discount-db:
@@ -59,7 +60,7 @@ services:
       - pgadmin_data:/root/.pgadmin
 
   discount-api:
-    image: discount-api
+    image: ${DOCKER_REGISTRY-}discount-api
     build:
       context: .
       dockerfile: Services/Discount/Discount.API/Dockerfile
@@ -67,7 +68,7 @@ services:
       - discount-db
 
   discount-grpc:
-    image: discount-grpc
+    image: ${DOCKER_REGISTRY-}discount-grpc
     build:
       context: .
       dockerfile: Services/Discount/Discount.Grpc/Dockerfile
@@ -86,27 +87,25 @@ services:
       - order_data:/var/lib/mssql/data
 
   order-api:
-    image: order-api
+    image: ${DOCKER_REGISTRY-}order-api
     build:
       context: .
       dockerfile: Services/Order/Order.API/Dockerfile
     depends_on:
       - order-db
+      - rabbitmq
   
   rabbitmq:
     container_name: rabbitmq
     image: rabbitmq:management-alpine
     restart: always
-    depends_on: 
-      - order-api
-      - basket-api
     ports:
       - "15672:15672"
       - "5672:5672"
 
   api-gateway:
     container_name: api-gateway
-    image: api-gateway
+    image: ${DOCKER_REGISTRY-}api-gateway
     build:
       context: .
       dockerfile: ApiGateways/ApiGateway/Dockerfile
@@ -119,6 +118,26 @@ services:
       - order-api
     ports:
       - "6100:80"
+
+  shopping-aggregator:
+    container_name: shopping-aggregator
+    image: ${DOCKER_REGISTRY-}shopping-aggregator
+    build:
+      context: .
+      dockerfile: ApiGateways/Shopping.Aggregator/Dockerfile
+    environment:
+        - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
+        - ApiSettings:CatalogUrl=http://catalog-api
+        - ApiSettings:BasketUrl=http://basket-api
+        - ApiSettings:OrderUrl=http://order-api
+    depends_on: 
+      - api-gateway
+      - basket-api
+      - discount-api
+      - order-api
+      - catalog-api
+    ports:
+        - "6110:80"
 
 volumes:
   catalog_data:
