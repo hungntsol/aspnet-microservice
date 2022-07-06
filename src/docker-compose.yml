@@ -12,7 +12,7 @@ services:
       - catalog_data:/data/db
 
   catalog-api:
-    image: ${DOCKER_REGISTRY-}catalog-api
+    image: catalog-api
     build:
       context: .
       dockerfile: Services/Catalog/Catalog.API/Dockerfile
@@ -29,7 +29,7 @@ services:
       - "6379:6379"
 
   basket-api:
-    image: ${DOCKER_REGISTRY-}basket-api
+    image: basket-api
     build:
       context: .
       dockerfile: Services/Basket/Basket.API/Dockerfile
@@ -52,14 +52,14 @@ services:
     image: dpage/pgadmin4
     restart: always
     depends_on:
-      - discount_db
+      - discount-db
     ports:
       - "8080:80"
     volumes:
       - pgadmin_data:/root/.pgadmin
 
   discount-api:
-    image: ${DOCKER_REGISTRY-}discount-api
+    image: discount-api
     build:
       context: .
       dockerfile: Services/Discount/Discount.API/Dockerfile
@@ -67,7 +67,7 @@ services:
       - discount-db
 
   discount-grpc:
-    image: ${DOCKER_REGISTRY-}discount-grpc
+    image: discount-grpc
     build:
       context: .
       dockerfile: Services/Discount/Discount.Grpc/Dockerfile
@@ -86,7 +86,7 @@ services:
       - order_data:/var/lib/mssql/data
 
   order-api:
-    image: ${DOCKER_REGISTRY-}order-api
+    image: order-api
     build:
       context: .
       dockerfile: Services/Order/Order.API/Dockerfile
@@ -106,7 +106,7 @@ services:
 
   api-gateway:
     container_name: api-gateway
-    image: ${DOCKER_REGISTRY-}api-gateway
+    image: api-gateway
     build:
       context: .
       dockerfile: ApiGateways/ApiGateway/Dockerfile
