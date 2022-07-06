@@ -59,9 +59,9 @@ public class CatalogsController : ControllerBase
     public async Task<IActionResult> DeleteProduct(string id)
     {
         var product = await _productRepository.GetProductByIdAsync(id);
-        if (product is null)
+        if (product is null || string.IsNullOrEmpty(product.Name))
         {
-            _logger.LogWarning($"Product with id: {id} not found.");
+            _logger.LogWarning("Product with id: {Id} not found", id);
             return NotFound();
         }
         var result = await _productRepository.DeleteProductAsync(product);
