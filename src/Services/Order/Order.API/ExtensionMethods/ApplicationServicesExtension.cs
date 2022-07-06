@@ -3,6 +3,7 @@ using FluentValidation;
 using Mapster;
 using MapsterMapper;
 using MediatR;
+using Order.API.Mapping;
 using Order.Application.Behaviours;
 using Order.Application.Features.Orders.Queries.GetOneOrder;
 using Order.Application.Mapping;
@@ -33,6 +34,7 @@ public static class ApplicationServicesExtension
 	{
 		var typeAdapterConfig = TypeAdapterConfig.GlobalSettings;
 		typeAdapterConfig.Apply(new MappingProfile());
+		typeAdapterConfig.Apply(new MappingApiProfile());
 
 		services.AddSingleton(typeAdapterConfig);
 		services.AddScoped<IMapper, ServiceMapper>();

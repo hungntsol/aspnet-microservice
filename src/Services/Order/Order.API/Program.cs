@@ -14,6 +14,8 @@ builder.Services.AddDataContext<OrderDataContext>(builder.Configuration);
 
 builder.Services.AddInfrastructureServices();
 builder.Services.AddApplicationServices();
+builder.Services.AddEventBus(builder.Configuration);
+
 
 var app = builder.Build();
 app.MigrateDatabase<OrderDataContext>((context, action) => { });

@@ -42,7 +42,7 @@ public class OrdersController : ControllerBase
     public async Task<IActionResult> Checkout([FromBody] CheckoutOrderCommand command)
     {
         var data = await _mediator.Send(command);
-        return Created("", "");
+        return StatusCode(StatusCodes.Status201Created);
     }
 
     [HttpPut("update")]

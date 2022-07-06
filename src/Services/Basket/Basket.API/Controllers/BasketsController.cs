@@ -75,6 +75,7 @@ public class BasketsController : ControllerBase
         await _publishEndpoint.Publish(eventMessage);
 
         // remove basket from repository
+        await _basketRepository.DeleteBasketAsync(command.Username);
 
         return Accepted();
     }

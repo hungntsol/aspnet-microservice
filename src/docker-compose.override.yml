@@ -60,5 +60,6 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
       - MSSQLSettings:ConnectionString=${OrderDb_ConnectionString}
+      - EventBusSettings:HostAddress=${RabbitMQ_HostAddress}
     ports:
       - "5030:80"
