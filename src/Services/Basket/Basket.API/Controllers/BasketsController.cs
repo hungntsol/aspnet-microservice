@@ -51,10 +51,10 @@ public class BasketsController : ControllerBase
         return Ok(await _basketRepository.UpdateBasketAsync(basket));
     }
 
-    [HttpDelete("{userName}")]
-    public async Task<IActionResult> DeleteBasket(string userName)
+    [HttpDelete("{username}")]
+    public async Task<IActionResult> DeleteBasket(string username)
     {
-        return Ok(await _basketRepository.DeleteBasketAsync(userName));
+        return Ok(await _basketRepository.DeleteBasketAsync(username));
     }
 
     [HttpPost("checkout")]

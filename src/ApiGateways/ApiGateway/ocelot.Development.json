@@ -6,8 +6,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5000
+          "Host": "catalog-api",
+          "Port": 80
         }
       ],
       "UpstreamPathTemplate": "/Catalogs",
@@ -29,8 +29,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5000
+          "Host": "catalog-api",
+          "Port": 80
         }
       ],
       "UpstreamPathTemplate": "/Catalogs/{id}",
@@ -41,15 +41,15 @@
     },
     // Basket api
     {
-      "DownstreamPathTemplate": "/api/Baskets/${username}",
+      "DownstreamPathTemplate": "/api/Baskets/{username}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5010
+          "Host": "basket-api",
+          "Port": 80
         }
       ],
-      "UpstreamPathTemplate": "/Baskets/${username}",
+      "UpstreamPathTemplate": "/Baskets/{username}",
       "UpstreamHttpMethod": [
         "GET",
         "DELETE"
@@ -60,8 +60,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5010
+          "Host": "basket-api",
+          "Port": 80
         }
       ],
       "UpstreamPathTemplate": "/Baskets",
@@ -74,8 +74,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5010
+          "Host": "basket-api",
+          "Port": 80
         }
       ],
       "UpstreamPathTemplate": "/Baskets/checkout",
@@ -89,8 +89,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5030
+          "Host": "order-api",
+          "Port": 80
         }
       ],
       "UpstreamPathTemplate": "/Orders/{id}",
@@ -100,15 +100,15 @@
       ]
     },
     {
-      "DownstreamPathTemplate": "/api/Orders/${username}",
+      "DownstreamPathTemplate": "/api/Orders/{username}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5030
+          "Host": "order-api",
+          "Port": 80
         }
       ],
-      "UpstreamPathTemplate": "/Orders/${username}",
+      "UpstreamPathTemplate": "/Orders/{username}",
       "UpstreamHttpMethod": [
         "GET"
       ]
@@ -118,8 +118,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5030
+          "Host": "order-api",
+          "Port": 80
         }
       ],
       "UpstreamPathTemplate": "/Orders/update",
@@ -132,8 +132,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5030
+          "Host": "order-api",
+          "Port": 80
         }
       ],
       "UpstreamPathTemplate": "/Orders/checkout",

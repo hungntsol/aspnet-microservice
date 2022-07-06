@@ -97,9 +97,28 @@ services:
     container_name: rabbitmq
     image: rabbitmq:management-alpine
     restart: always
+    depends_on: 
+      - order-api
+      - basket-api
     ports:
       - "15672:15672"
       - "5672:5672"
+
+  api-gateway:
+    container_name: api-gateway
+    image: ${DOCKER_REGISTRY-}api-gateway
+    build:
+      context: .
+      dockerfile: ApiGateways/ApiGateway/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
+    depends_on: 
+      - catalog-api
+      - basket-api
+      - discount-api
+      - order-api
+    ports:
+      - "6100:80"
 
 volumes:
   catalog_data:
