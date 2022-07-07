@@ -5,7 +5,6 @@ services:
     image: mongo
     ports:
       - "27017:27017"
-    restart: always
     volumes:
       - catalog_data:/data/db
     networks:
@@ -27,7 +26,6 @@ services:
 
   basket_db:
     image: redis:alpine
-    restart: always
     ports:
       - "6379:6379"
     networks:
@@ -35,7 +33,6 @@ services:
 
   basket_api:
     image: gaughegom/basket_api
-    restart: always
     depends_on:
       - basket_db
       - rabbitmq
@@ -51,7 +48,6 @@ services:
 
   discount_db:
     image: postgres:alpine
-    restart: always
     ports:
       - "5432:5432"
     volumes:
@@ -66,7 +62,6 @@ services:
 
   pgadmin4:
     image: dpage/pgadmin4
-    restart: always
     depends_on:
       - discount_db
     ports:
@@ -87,7 +82,7 @@ services:
       - web_services
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - PostgresSettings:ConnectionString=Server=discount_db;Port=5432;User Id=postgres;Password=postgres;Database=DiscountDb
+      - PostgresSettings:ConnectionString=Server=discount_db;Port=5432;Database=DiscountDb;User Id=postgres;Password=postgres
     ports:
       - "5020:80"
 
@@ -106,7 +101,6 @@ services:
 
   order_db:
     image: mcr.microsoft.com/mssql/server
-    restart: always
     ports:
       - "1433:1433"
     volumes:
@@ -126,14 +120,13 @@ services:
       - web_services
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - MSSQLSettings:ConnectionString=Server=order-db;Database=OrderDb;User Id=sa;Password=Sa123456
+      - MSSQLSettings:ConnectionString=Server=order_db;Database=OrderDb;User Id=sa;Password=Sa123456
       - EventBusSettings:HostAddress=amqp://guest:guest@rabbitmq:5672
     ports:
       - "5030:80"
 
   rabbitmq:
     image: rabbitmq:management-alpine
-    restart: always
     ports:
       - "15672:15672"
       - "5672:5672"

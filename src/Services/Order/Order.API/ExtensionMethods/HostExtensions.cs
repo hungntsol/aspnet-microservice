@@ -26,8 +26,11 @@ public static class HostExtensions
 		catch (Exception)
 		{
 			retry--;
-			Thread.Sleep(1000);
-			MigrateDatabase<TContext>(host, seeder, retry);
+			if (retry > 0)
+			{
+				Thread.Sleep(1000);
+				MigrateDatabase<TContext>(host, seeder, retry);
+			}
 		}
 
 		return host;
