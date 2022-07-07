@@ -10,6 +10,8 @@ services:
     restart: always
     volumes:
       - catalog_data:/data/db
+    networks:
+      - aspnet_micro
 
   catalog-api:
     image: ${DOCKER_REGISTRY-}catalog-api
@@ -19,6 +21,8 @@ services:
     restart: always
     depends_on:
       - catalog-db
+    networks:
+      - aspnet_micro
 
   # Basket
   basket-db:
@@ -27,6 +31,8 @@ services:
     restart: always
     ports:
       - "6379:6379"
+    networks:
+      - aspnet_micro
 
   basket-api:
     image: ${DOCKER_REGISTRY-}basket-api
@@ -37,6 +43,8 @@ services:
     depends_on:
       - basket-db
       - rabbitmq
+    networks:
+      - aspnet_micro
 
   # Discount
   discount-db:
@@ -47,6 +55,8 @@ services:
       - "5432:5432"
     volumes:
       - discount_data:/var/lib/postgresql/data
+    networks:
+      - aspnet_micro
 
   pgadmin4:
     container_name: pgadmin4
@@ -58,6 +68,8 @@ services:
       - "8080:80"
     volumes:
       - pgadmin_data:/root/.pgadmin
+    networks:
+      - aspnet_micro
 
   discount-api:
     image: ${DOCKER_REGISTRY-}discount-api
@@ -66,6 +78,8 @@ services:
       dockerfile: Services/Discount/Discount.API/Dockerfile
     depends_on:
       - discount-db
+    networks:
+      - aspnet_micro
 
   discount-grpc:
     image: ${DOCKER_REGISTRY-}discount-grpc
@@ -75,6 +89,8 @@ services:
     depends_on:
       - discount-db
       - discount-api
+    networks:
+      - aspnet_micro
 
   # Order
   order-db:
@@ -85,6 +101,8 @@ services:
       - "1433:1433"
     volumes:
       - order_data:/var/lib/mssql/data
+    networks:
+      - aspnet_micro
 
   order-api:
     image: ${DOCKER_REGISTRY-}order-api
@@ -94,6 +112,8 @@ services:
     depends_on:
       - order-db
       - rabbitmq
+    networks:
+      - aspnet_micro
   
   rabbitmq:
     container_name: rabbitmq
@@ -102,6 +122,8 @@ services:
     ports:
       - "15672:15672"
       - "5672:5672"
+    networks:
+      - aspnet_micro
 
   api-gateway:
     container_name: api-gateway
@@ -118,6 +140,8 @@ services:
       - order-api
     ports:
       - "6100:80"
+    networks:
+      - aspnet_micro
 
   shopping-aggregator:
     container_name: shopping-aggregator
@@ -138,6 +162,13 @@ services:
       - catalog-api
     ports:
         - "6110:80"
+    networks:
+      - aspnet_micro
+
+networks:
+  aspnet_micro:
+    name: aspnet_micro
+    driver: bridge    
 
 volumes:
   catalog_data:
