@@ -213,7 +213,7 @@ volumes:
   catalog_data:
   discount_data:
   pgadmin_data:
-  order_data:version: '3.8'
+  order_data:
 
 services:
   catalog.db:
