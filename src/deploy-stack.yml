@@ -1,4 +1,4 @@
-version: '3.8'
+version: "3.8"
 
 services:
   catalog.db:
@@ -105,7 +105,6 @@ services:
     ports:
       - "5020:80"
 
-
   discount.grpc:
     image: ${DOCKER_REGISTRY-}discount.grpc
     build:
@@ -153,7 +152,6 @@ services:
     ports:
       - "5030:80"
 
-  
   rabbitmq:
     container_name: rabbitmq
     image: rabbitmq:management-alpine
@@ -172,7 +170,7 @@ services:
       dockerfile: ApiGateways/ApiGateway/Dockerfile
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-    depends_on: 
+    depends_on:
       - catalog.api
       - basket.api
       - discount.api
@@ -189,18 +187,18 @@ services:
       context: .
       dockerfile: ApiGateways/Shopping.Aggregator/Dockerfile
     environment:
-        - ASPNETCORE_ENVIRONMENT=Development
-        - ApiSettings:CatalogUrl=http://catalog.api
-        - ApiSettings:BasketUrl=http://basket.api
-        - ApiSettings:OrderUrl=http://order.api
-    depends_on: 
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ApiSettings:CatalogUrl=http://catalog.api
+      - ApiSettings:BasketUrl=http://basket.api
+      - ApiSettings:OrderUrl=http://order.api
+    depends_on:
       - api.gateway
       - basket.api
       - discount.api
       - order.api
       - catalog.api
     ports:
-        - "6110:80"
+      - "6110:80"
     networks:
       - aspnet_micro
 
@@ -214,7 +212,3 @@ volumes:
   discount_data:
   pgadmin_data:
   order_data:
-
-services:
-  catalog.db:
-    container_name: catalog.db
