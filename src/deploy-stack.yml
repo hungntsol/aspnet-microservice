@@ -1,7 +1,6 @@
 version: '3.8'
 
 services:
-	# Catalog
 	catalog.db:
 		image: mongo
 		container_name: catalog.db
@@ -31,7 +30,6 @@ services:
 		ports:
 			- "5000:80"
 
-	# Basket
 	basket.db:
 		image: redis:alpine
 		container_name: basket.db
@@ -60,7 +58,6 @@ services:
 		ports:
 			- "5010:80"
 
-	# Discount
 	discount.db:
 		container_name: discount.db
 		image: postgres:alpine
@@ -125,7 +122,6 @@ services:
 		ports:
 			- "5120:80"
 
-	# Order
 	order.db:
 		container_name: order.db
 		image: mcr.microsoft.com/mssql/server
