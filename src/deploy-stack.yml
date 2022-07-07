@@ -28,12 +28,6 @@ services:
     deploy:
       mode: replicated
       replicas: 3
-      update_config:
-        parallelism: 2
-        delay: 10s
-      restart_policy:
-        condition: on-failure
-        delay: 10s
         
 
   basket_db:
@@ -45,13 +39,6 @@ services:
     deploy:
       mode: replicated
       replicas: 2
-      update_config:
-        parallelism: 2
-        delay: 10s
-      restart_policy:
-        condition: on-failure
-        delay: 10s
-        max_attempts: 5
 
   basket_api:
     image: gaughegom/basket_api
@@ -70,12 +57,6 @@ services:
     deploy:
       mode: replicated
       replicas: 2
-      update_config:
-        parallelism: 2
-        delay: 10s
-      restart_policy:
-        condition: on-failure
-        delay: 10s
 
   discount_db:
     image: postgres:alpine
@@ -93,13 +74,6 @@ services:
     deploy:
       mode: replicated
       replicas: 2
-      update_config:
-        parallelism: 2
-        delay: 10s
-      restart_policy:
-        condition: on-failure
-        delay: 10s
-        max_attempts: 5
 
   pgadmin4:
     image: dpage/pgadmin4
@@ -117,13 +91,6 @@ services:
     deploy:
       mode: replicated
       replicas: 2
-      update_config:
-        parallelism: 2
-        delay: 10s
-      restart_policy:
-        condition: on-failure
-        delay: 10s
-        max_attempts: 5
 
   discount_api:
     image: gaughegom/discount_api
@@ -139,12 +106,6 @@ services:
     deploy:
       mode: replicated
       replicas: 2
-      update_config:
-        parallelism: 2
-        delay: 10s
-      restart_policy:
-        condition: on-failure
-        delay: 10s
 
   discount_grpc:
     image: gaughegom/discount_grpc
@@ -161,12 +122,6 @@ services:
     deploy:
       mode: replicated
       replicas: 2
-      update_config:
-        parallelism: 2
-        delay: 10s
-      restart_policy:
-        condition: on-failure
-        delay: 10s
 
   order_db:
     image: mcr.microsoft.com/mssql/server
@@ -182,13 +137,6 @@ services:
     deploy:
       mode: replicated
       replicas: 2
-      update_config:
-        parallelism: 2
-        delay: 10s
-      restart_policy:
-        condition: on-failure
-        delay: 10s
-        max_attempts: 5
 
   order_api:
     image: gaughegom/order_api
@@ -206,12 +154,6 @@ services:
     deploy:
       mode: replicated
       replicas: 2
-      update_config:
-        parallelism: 2
-        delay: 10s
-      restart_policy:
-        condition: on-failure
-        delay: 10s
 
   rabbitmq:
     image: rabbitmq:management-alpine
@@ -223,11 +165,6 @@ services:
     deploy:
       mode: replicated
       replicas: 2
-      update_config:
-        parallelism: 2
-        delay: 10s
-      restart_policy:
-        condition: on-failure
 
   api_gateway:
     image: gaughegom/api_gateway
@@ -245,11 +182,6 @@ services:
     deploy:
       mode: replicated
       replicas: 2
-      update_config:
-        parallelism: 2
-        delay: 10s
-      restart_policy:
-        condition: on-failure
 
   api_aggregator:
     image: gaughegom/api_aggregator
@@ -271,11 +203,6 @@ services:
     deploy:
       mode: replicated
       replicas: 2
-      update_config:
-        parallelism: 2
-        delay: 10s
-      restart_policy:
-        condition: on-failure
 
 networks:
   web_services:
