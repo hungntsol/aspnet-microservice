@@ -206,6 +206,8 @@ services:
 
 networks:
   web_services:
+    driver: overlay
+  
 
 volumes:
   catalog_data:
