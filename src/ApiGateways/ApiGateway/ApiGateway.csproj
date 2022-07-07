@@ -20,6 +20,9 @@
       <Content Update="ocelot.Development.json">
         <DependentUpon>ocelot.json</DependentUpon>
       </Content>
+      <Content Update="ocelot.Uat.json">
+        <DependentUpon>ocelot.json</DependentUpon>
+      </Content>
     </ItemGroup>
 
 </Project>

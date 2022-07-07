@@ -1,8 +1,8 @@
 ﻿version: "3.8"
 
 services:
-  catalog-api:
-    container_name: catalog-api
+  catalog_api:
+    container_name: catalog_api
     environment:
       - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
       - MongoSettings:ConnectionString=${CatalogDb_ConnectionString}
@@ -11,8 +11,8 @@ services:
     ports:
       - "5000:80"
         
-  basket-api:
-    container_name: basket-api
+  basket_api:
+    container_name: basket_api
     environment:
       - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
       - RedisSettings:ConnectionString=${BasketDb_ConnectionString}
@@ -21,7 +21,7 @@ services:
     ports:
       - "5010:80"
 
-  discount-db:
+  discount_db:
     environment:
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
@@ -34,29 +34,29 @@ services:
       - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_DEFAULT_PASSWORD}
   
 
-  discount-api:
-    container_name: discount-api
+  discount_api:
+    container_name: discount_api
     environment:
       - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
       - PostgresSettings:ConnectionString=${DiscountDb_ConnectionString}
     ports:
       - "5020:80"
 
-  discount-grpc:
-    container_name: discount-grpc
+  discount_grpc:
+    container_name: discount_grpc
     environment:
       - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
       - PostgresSettings:ConnectionString=${DiscountDb_ConnectionString}
     ports:
       - "5120:80"
 
-  order-db:
+  order_db:
     environment:
       - SA_PASSWORD=${OrderDb_SA_PASSWORD}
       - ACCEPT_EULA=${OrderDb_ACCEPT_EULA}
 
-  order-api:
-    container_name: order-api
+  order_api:
+    container_name: order_api
     environment:
       - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
       - MSSQLSettings:ConnectionString=${OrderDb_ConnectionString}
